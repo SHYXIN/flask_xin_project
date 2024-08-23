@@ -7,7 +7,6 @@ from . import main
 from .forms import NameForm, EditProfileForm, EditProfileAdminForm, PostForm,\
     CommentForm
 from .. import db
-from ..email import send_email
 from ..models import Role, User, Permission, Post, Comment
 from ..decorators import admin_required, permission_required
 

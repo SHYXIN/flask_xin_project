@@ -19,7 +19,7 @@ def users(admin=2, moderator=2, user=20):
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-    roles_name = ['管理员', '编辑', '普通用户']
+    roles_name = ['管理员', '版主', '普通用户']
     role_email = ['admin', 'moderator', 'user']
 
     def create_user(role_id, count):
