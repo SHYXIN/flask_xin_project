@@ -258,8 +258,8 @@ flask test
 
 ## 打赏联系我
 
-<img src="images\wechat1.jpg" width="270" height="300">
-<img src="images\wechat2.jpg" width="270" height="300">
+<img src="images/wechat1.jpg" width="270" height="300">
+<img src="images/wechat2.jpg" width="270" height="300">
 
 ## 打个广告
 
@@ -269,7 +269,7 @@ flask test
 
 书籍链接：https://item.m.jd.com/product/14595352.html
 
-![alt text](images\streamlit_book.png)
+![alt text](images/streamlit_book.png)
 
 ## 许可证
 
