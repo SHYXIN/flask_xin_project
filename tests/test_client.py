@@ -20,8 +20,8 @@ class FlaskClientTestCase(unittest.TestCase):
     def test_home_page(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'Stranger' in response.data)
-        self.assertTrue('Stranger' in response.get_data(as_text=True))
+        # self.assertTrue(b'陌生人' in response.data)
+        self.assertTrue('陌生人' in response.get_data(as_text=True))
 
     def test_register_and_login(self):
         # register a new account
@@ -39,12 +39,12 @@ class FlaskClientTestCase(unittest.TestCase):
             'password': 'cat'
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(re.search(b'Hello,\s+john!', response.data))
-        self.assertTrue(re.search('Hello,\s+john!', response.get_data(as_text=True)))
+        # self.assertTrue(re.search(b'Hello,\s+john!', response.data))
+        self.assertTrue(re.search('你好，\s+john', response.get_data(as_text=True)))
+        # self.assertTrue(
+        #     b'You have not confirmed your account yet' in response.data)
         self.assertTrue(
-            b'You have not confirmed your account yet' in response.data)
-        self.assertTrue(
-            'You have not confirmed your account yet' in response.get_data(as_text=True)
+            '您尚未确认您的账户' in response.get_data(as_text=True)
         )
 
 
@@ -55,10 +55,10 @@ class FlaskClientTestCase(unittest.TestCase):
                                    follow_redirects=True)
         user.confirm(token)
         self.assertEqual(response.status_code, 200)
+        # self.assertTrue(
+        #     b'You have confirmed your account' in response.data)
         self.assertTrue(
-            b'You have confirmed your account' in response.data)
-        self.assertTrue(
-            'You have confirmed your account' in response.get_data(
+            '您已确认您的帐户' in response.get_data(
                 as_text=True
             )
         )
@@ -66,7 +66,7 @@ class FlaskClientTestCase(unittest.TestCase):
         # log out
         response = self.client.get('/auth/logout', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'You have been logged out' in response.data)
-        self.assertTrue('You have been logged out' in response.get_data(
+        # self.assertTrue(b'You have been logged out' in response.data)
+        self.assertTrue('您已退出登录' in response.get_data(
             as_text=True
         ))

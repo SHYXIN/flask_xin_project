@@ -12,47 +12,6 @@ from ..models import Role, User, Permission, Post, Comment
 from ..decorators import admin_required, permission_required
 
 
-# @main.route('/', methods=['GET', 'POST'])
-# def index():
-#     form = NameForm()
-#     if form.validate_on_submit():
-#         user = User.query.filter_by(username=form.name.data).first()
-#         if user is None:
-#             user = User(username=form.name.data)
-#             db.session.add(user)
-#             db.session.commit()
-#             session['known'] = False
-#             if current_app.config['FLASKY_ADMIN']:
-#                 send_email(current_app.config['FLASKY_ADMIN'], 'New User',
-#                            'mail/new_user', user=user)
-#         else:
-#             session['known'] = True
-#         session['name'] = form.name.data
-#         return redirect(url_for('.index'))
-#     return render_template('index.html',
-#                            form=form, name=session.get('name'),
-#                            known=session.get('known', False),
-#                            current_time=datetime.utcnow())
-
-# @main.route('/', methods=['GET', 'POST'])
-# def index():
-#     form = PostForm()
-#     if current_user.can(Permission.WRITE) and form.validate_on_submit():
-#         post = Post(body=form.body.data,
-#                     author=current_user._get_current_object())
-#         db.session.add(post)
-#         db.session.commit()
-#         return redirect(url_for('.index'))
-#     page = request.args.get('page', 1, type=int)
-#     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
-#         page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
-#         error_out=False
-#     )
-#     posts = pagination.items
-#     # posts = Post.query.order_by(Post.timestamp.desc()).all()
-#     return render_template('index.html', form=form, posts=posts,
-#                            pagination=pagination)
-
 @main.after_app_request
 def after_request(response):
     for query in get_debug_queries():
@@ -223,7 +182,7 @@ def follow(username):
         return redirect(url_for('.user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash('您现在正在关注 %s.' % username)
+    flash('您刚刚关注了 %s.' % username)
     return redirect(url_for('.user', username=username))
 
 
@@ -256,7 +215,7 @@ def followers(username):
         error_out=False)
     follows = [{'user': item.follower, 'timestamp': item.timestamp}
                for item in pagination.items]
-    return render_template('followers.html', user=user, title="的关注者",
+    return render_template('followers.html', user=user, title="的粉丝",
                            endpoint='.followers', pagination=pagination,
                            follows=follows)
 
@@ -272,7 +231,7 @@ def followed_by(username):
         error_out=False)
     follows = [{'user': item.followed, 'timestamp': item.timestamp}
                for item in pagination.items]
-    return render_template('followers.html', user=user, title="的粉丝",
+    return render_template('followers.html', user=user, title="的关注",
                            endpoint='.followed_by', pagination=pagination,
                            follows=follows)
 
