@@ -44,7 +44,7 @@ class APITestCase(unittest.TestCase):
 
     def test_posts(self):
         # add a user
-        r = Role.query.filter_by(name='User').first()  # 获取User角色
+        r = Role.query.filter_by(name='普通用户').first()  # 获取User角色
         self.assertIsNotNone(r)
         u = User(email='john@example.com', password='cat', confirmed=True,
                  role=r)
@@ -59,7 +59,7 @@ class APITestCase(unittest.TestCase):
 
     def test_token_auth(self):
         # add a user
-        r = Role.query.filter_by(name='User').first()
+        r = Role.query.filter_by(name='普通用户').first()
         self.assertIsNotNone(r)
         u = User(email='john@example.com', password='cat', confirmed=True,
                  role=r)

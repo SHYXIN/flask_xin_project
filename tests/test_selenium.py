@@ -39,7 +39,7 @@ class SeleniumTestCase(unittest.TestCase):
             fake.posts(10)
 
             # add an administrator user
-            admin_role = Role.query.filter_by(name='Administrator').first()
+            admin_role = Role.query.filter_by(name='管理员').first()
             admin = User(email='john@example.com',
                          username='john', password='cat',
                          role=admin_role, confirmed=True)

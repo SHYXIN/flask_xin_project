@@ -1,8 +1,66 @@
-# Flask Project
+# Flask 社交博客项目
 
 ## 项目简介
 
 这是一个使用 Flask 框架构建的 Web 应用程序。本项目提供了，具有社交功能的博客项目。
+
+这个Flask项目具备多个主要功能模块。以下是对这些功能的详细说明：
+1. 用户认证功能 (auth)
+
+   - 注册 (Register): 用户可以通过注册页面创建新账户。注册后，通常会发送一封确认邮件以验证用户的电子邮件地址。
+   - 登录 (Login): 用户可以通过登录页面输入用户名和密码进行身份验证。如果验证成功，用户将获得访问受限资源的权限。
+   - 密码重置 (Password Reset): 如果用户忘记密码，可以通过提供注册时的电子邮件地址来请求重置密码。系统会发送一封带有重置链接的邮件。
+   - 电子邮件验证 (Email Confirmation): 注册后，用户需通过点击发送到电子邮件中的确认链接来验证他们的电子邮件地址。
+   - 视图和表单: 这一模块包含处理用户输入的表单类 (forms.py) 和处理用户请求的视图函数 (views.py)。
+
+2. API接口 (api)
+   - 身份验证 (Authentication): 处理API用户的身份验证请求，使用HTTPBasicAuth认证。
+   - 用户管理 (User Management): 提供API端点，允许用户查询、更新、删除用户信息。
+   - 帖子管理 (Post Management): 允许用户通过API创建、读取、更新和删除博客帖子。
+   - 评论管理 (Comment Management): 类似于帖子管理，允许用户通过API对帖子进行评论，或管理评论。
+   - 错误处理 (Error Handling): 定义API错误响应，确保API能够返回清晰的错误信息给客户端。
+
+3. 主应用逻辑 (main)
+
+   - 主页 (Home Page): 主模块通常包含应用的主页视图。在这个项目中，主页显示最新的帖子。
+   - 用户资料 (User Profile): 提供用户个人资料查看和编辑功能。用户可以更新自己的信息，如用户名、简介等。
+   - 帖子功能 (Post Management): 包括创建新帖子、编辑现有帖子、查看单个帖子的详细信息等功能。
+   - 关注者管理 (Followers Management): 提供查看和管理关注者的功能。用户可以查看他们的关注者或他们关注的用户列表。
+   - 表单处理 (Form Handling): 处理来自前端的表单提交，如创建或编辑帖子、评论等。
+
+4. 数据库管理 (models.py, migrations/)
+
+   - ORM (Object-Relational Mapping): 使用SQLAlchemy进行对象关系映射，将数据库表映射到Python类中。这些类定义了数据库的结构和关系。
+   - 数据迁移 (Database Migrations): 使用Alembic进行数据库迁移管理。migrations/文件夹中的脚本用于在数据库结构变更时自动应用这些变更。
+
+5. 邮件功能 (email.py)
+
+   - 发送邮件: 系统通过Flask-Mail扩展发送电子邮件。例如，当用户注册或请求密码重置时，系统会发送相应的确认邮件或重置链接。
+   - 邮件模板: templates/auth/email/中包含了HTML和纯文本格式的邮件模板，用于生成发送给用户的邮件内容。
+
+6. 前端模板 (templates/)
+
+   - Jinja2模板: 使用Jinja2模板引擎渲染动态HTML页面，模板文件如base.html, index.html, user.html等定义了网站的页面布局和内容。
+   - Bootstrap集成: 使用Bootstrap前端框架为网站提供响应式设计和现代UI组件。
+
+7. 测试功能 (tests/)
+
+   - 单元测试 (Unit Testing): 项目包含一组测试用例，用于确保各个模块的功能正常工作。
+   - API测试: 测试API端点的功能，验证身份验证、数据CRUD操作等是否按预期工作。
+   - Selenium测试: 使用Selenium进行端到端测试，模拟用户在浏览器中的操作，验证应用的整体功能。
+
+8. Docker支持
+   - 容器化应用: Dockerfile定义了应用的Docker镜像，docker-compose.yml文件用于定义多个容器的运行配置，如Web应用、数据库等。
+   - 环境变量管理: .env和.env-mysql文件用于配置敏感信息，如数据库连接字符串、电子邮件服务器配置等。这些文件不应提交到版本控制系统中。
+
+9. 部署脚本 (boot.sh)
+   - 自动化部署: boot.sh脚本可能用于自动化部署过程，启动应用服务器、运行数据库迁移并初始化权限表。
+
+10. 分页和Markdown支持 (pagedown)
+    - 分页: 使用Flask-Pagedown扩展，为帖子或评论提供分页功能，支持大篇幅文本的分页显示。
+    - Markdown编辑: 提供Markdown格式的文本编辑和预览功能，用户可以在编写帖子或评论时使用Markdown语法。
+
+这个项目整合了多个功能模块，提供了一个功能齐全的Web应用框架，涵盖了用户认证、API服务、前后端集成、数据库管理、测试和部署等方面。
 
 ## 主要目录结构
 
@@ -35,6 +93,7 @@
 ├── docker-compose.yml   # docker部署，容器编排文件（MySql数据库）
 ├── Dockerfile           # docker部署时，python环境构建文件
 ```
+
 
 ## 环境设置
 
